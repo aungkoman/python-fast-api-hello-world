@@ -78,6 +78,37 @@ All API endpoints are prefixed with `/api/v1`.
 -   **PUT /api/v1/users/{user_id}**: Update an existing user by ID.
 -   **DELETE /api/v1/users/{user_id}**: Delete a user by ID.
 
+### Blog Post Management
+
+-   **POST /api/v1/blog_posts**: Create a new blog post.
+-   **GET /api/v1/blog_posts**: Retrieve a list of blog posts. Supports `skip`, `limit`, `author_id`, `category_id`, `tag_id`, and `published` query parameters.
+-   **GET /api/v1/blog_posts/{blog_post_id}**: Retrieve a single blog post by ID.
+-   **PUT /api/v1/blog_posts/{blog_post_id}**: Update an existing blog post by ID.
+-   **DELETE /api/v1/blog_posts/{blog_post_id}**: Delete a blog post by ID.
+
+### Category Management
+
+-   **POST /api/v1/categories**: Create a new category.
+-   **GET /api/v1/categories**: Retrieve a list of categories. Supports `skip` and `limit` query parameters.
+-   **GET /api/v1/categories/{category_id}**: Retrieve a single category by ID.
+-   **PUT /api/v1/categories/{category_id}**: Update an existing category by ID.
+-   **DELETE /api/v1/categories/{category_id}**: Delete a category by ID.
+
+### Tag Management
+
+-   **POST /api/v1/tags**: Create a new tag.
+-   **GET /api/v1/tags**: Retrieve a list of tags. Supports `skip` and `limit` query parameters.
+-   **GET /api/v1/tags/{tag_id}**: Retrieve a single tag by ID.
+-   **PUT /api/v1/tags/{tag_id}**: Update an existing tag by ID.
+-   **DELETE /api/v1/tags/{tag_id}**: Delete a tag by ID.
+
+### Image Management
+
+-   **POST /api/v1/images/upload**: Upload an image file.
+-   **GET /api/v1/images**: Retrieve a list of all image metadata. Supports `skip` and `limit` query parameters.
+-   **GET /api/v1/images/{image_id}**: Retrieve image metadata by ID.
+-   **DELETE /api/v1/images/{image_id}**: Delete an image by ID.
+
 ## Environment Variables
 
 You can configure the application using a `.env` file. Copy `.env.example` to `.env` and update the values as needed:
