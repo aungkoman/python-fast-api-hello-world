@@ -5,6 +5,12 @@ class Settings(BaseSettings):
     admin_email: str = "admin@example.com"
     items_per_page: int = 10
 
+    mysql_user: str
+    mysql_password: str
+    mysql_host: str
+    mysql_port: int
+    mysql_db: str
+
     class Config:
         env_file = ".env"
 
