@@ -1,5 +1,5 @@
 from database import Base, engine
-from models import Todo
+from models import Todo, Item
 
 print("Creating database tables...")
 Base.metadata.create_all(bind=engine)
