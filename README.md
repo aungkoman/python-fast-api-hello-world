@@ -17,8 +17,8 @@ This is a comprehensive To-Do List CRUD API built with FastAPI, featuring Pydant
 1.  **Clone the repository** (if applicable):
 
     ```bash
-    git clone <repository_url>
-    cd fastapi-python
+    git clone https://github.com/aungkoman/python-fast-api-hello-world
+    cd python-fast-api-hello-world
     ```
 
 2.  **Create a virtual environment** (recommended):
