@@ -61,13 +61,7 @@ All API endpoints are prefixed with `/api/v1`.
 
 ## Environment Variables
 
-You can configure the application using a `.env` file. Create a file named `.env` in the project root with the following content (example):
-
-```
-APP_NAME="My Awesome Todo API"
-ADMIN_EMAIL="your.email@example.com"
-ITEMS_PER_PAGE=20
-```
+You can configure the application using a `.env` file. Copy `.env.example` to `.env` and update the values as needed:
 
 ## Deployment Guide (Ubuntu with Apache and mod_wsgi)
 
