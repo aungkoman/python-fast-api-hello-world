@@ -109,6 +109,19 @@ All API endpoints are prefixed with `/api/v1`.
 -   **GET /api/v1/images/{image_id}**: Retrieve image metadata by ID.
 -   **DELETE /api/v1/images/{image_id}**: Delete an image by ID.
 
+### Admin Panel
+
+An administrative interface is available for managing various entities in the application using `SQLAdmin`.
+
+-   **Access Admin Panel**: `http://localhost:8000/admin`
+
+    You can manage the following models through the admin interface:
+    -   Users
+    -   Blog Posts
+    -   Categories
+    -   Tags
+    -   Images
+
 ## Environment Variables
 
 You can configure the application using a `.env` file. Copy `.env.example` to `.env` and update the values as needed:
