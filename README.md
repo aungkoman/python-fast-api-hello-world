@@ -4,7 +4,7 @@ This is a comprehensive To-Do List CRUD API built with FastAPI, featuring Pydant
 
 ## Features
 
-- **CRUD Operations**: Create, Read, Update, and Delete To-Do items and general items.
+- **CRUD Operations**: Create, Read, Update, and Delete To-Do items, general items, and manage users.
 - **Pydantic Models**: Robust request and response validation.
 - **In-Memory Storage**: Simple in-memory data storage for demonstration purposes.
 - **Pagination**: Retrieve To-Do items with pagination.
@@ -68,6 +68,15 @@ All API endpoints are prefixed with `/api/v1`.
 -   **GET /api/v1/items/{item_id}**: Retrieve a single item by ID.
 -   **PUT /api/v1/items/{item_id}**: Update an existing item by ID.
 -   **DELETE /api/v1/items/{item_id}**: Delete an item by ID.
+
+### User Management
+
+-   **POST /api/v1/users**: Register a new user.
+-   **POST /api/v1/users/login**: User login (JWT token generation to be implemented).
+-   **GET /api/v1/users**: Retrieve a list of users. Supports `skip` and `limit` query parameters.
+-   **GET /api/v1/users/{user_id}**: Retrieve a single user by ID.
+-   **PUT /api/v1/users/{user_id}**: Update an existing user by ID.
+-   **DELETE /api/v1/users/{user_id}**: Delete a user by ID.
 
 ## Environment Variables
 
