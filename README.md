@@ -68,3 +68,140 @@ APP_NAME="My Awesome Todo API"
 ADMIN_EMAIL="your.email@example.com"
 ITEMS_PER_PAGE=20
 ```
+
+## Deployment Guide (Ubuntu with Apache and mod_wsgi)
+
+This guide outlines the steps to deploy your FastAPI application on an Ubuntu server using Apache as a reverse proxy and `mod_wsgi`.
+
+### Prerequisites
+
+-   An Ubuntu server.
+-   Apache web server installed.
+-   Python 3.x and `pip` installed.
+-   MySQL server installed and configured.
+
+### 1. Server Setup
+
+1.  **Update and Upgrade System Packages**:
+
+    ```bash
+    sudo apt update && sudo apt upgrade -y
+    ```
+
+2.  **Install Apache and mod_wsgi**:
+
+    ```bash
+    sudo apt install apache2 libapache2-mod-wsgi-py3 -y
+    ```
+
+### 2. Project Setup on Server
+
+1.  **Clone your repository** to a suitable location, e.g., `/var/www/fastapi-python`:
+
+    ```bash
+    sudo git clone <your_repository_url> /var/www/fastapi-python
+    cd /var/www/fastapi-python
+    ```
+
+2.  **Create and Activate a Virtual Environment**:
+
+    ```bash
+    sudo apt install python3-venv -y
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+3.  **Install Dependencies**:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Configure Environment Variables**:
+
+    Create a `.env` file in the project root (`/var/www/fastapi-python/.env`) with your production settings, especially for the database connection.
+
+    ```env
+    APP_NAME="Production Todo API"
+    ADMIN_EMAIL="production@example.com"
+    ITEMS_PER_PAGE=20
+    MYSQL_USER=your_mysql_user
+    MYSQL_PASSWORD=your_mysql_password
+    MYSQL_HOST=localhost
+    MYSQL_PORT=3306
+    MYSQL_DB=fast_api_python
+    ```
+
+5.  **Create Database Tables**:
+
+    Ensure your MySQL database (`fast_api_python`) exists and then run the table creation script:
+
+    ```bash
+    python create_db_tables.py
+    ```
+
+### 3. WSGI Entry Point
+
+Create a `wsgi.py` file in your project root (`/var/www/fastapi-python/wsgi.py`) with the following content:
+
+```python
+import sys
+import os
+
+# Add your project directory to the Python path
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+
+from main import app
+
+# This is the WSGI application entry point
+application = app
+```
+
+### 4. Apache Virtual Host Configuration
+
+1.  **Create a new Apache virtual host file** for your application, e.g., `/etc/apache2/sites-available/fastapi-todo.conf`:
+
+    ```bash
+    sudo nano /etc/apache2/sites-available/fastapi-todo.conf
+    ```
+
+2.  **Add the following configuration** to the file, replacing `your_domain.com` with your actual domain or server IP:
+
+    ```apache
+    <VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ServerName your_domain.com
+        # ServerAlias www.your_domain.com
+
+        DocumentRoot /var/www/fastapi-python
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        WSGIDaemonProcess fastapi-todo python-home=/var/www/fastapi-python/venv python-path=/var/www/fastapi-python
+        WSGIProcessGroup fastapi-todo
+        WSGIScriptAlias / /var/www/fastapi-python/wsgi.py
+
+        <Directory /var/www/fastapi-python>
+            Require all granted
+        </Directory>
+
+        # Optional: Proxy for static files if you have any
+        # Alias /static /var/www/fastapi-python/static
+        # <Directory /var/www/fastapi-python/static>
+        #     Require all granted
+        # </Directory>
+    </VirtualHost>
+    ```
+
+3.  **Enable the virtual host and restart Apache**:
+
+    ```bash
+    sudo a2ensite fastapi-todo.conf
+    sudo a2dissite 000-default.conf # Disable default Apache page
+    sudo systemctl restart apache2
+    ```
+
+### 5. Access Your Application
+
+Your FastAPI application should now be accessible via your configured `ServerName` (e.g., `http://your_domain.com`). The API documentation will be available at `http://your_domain.com/docs`.
